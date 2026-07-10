@@ -18,6 +18,13 @@ const userSchema = mongoose.Schema({
     required: true,
     select: false,
   },
+  isLoggedIn:{
+  
+    type:Boolean,
+    default:false
+
+
+  },
 },
 {
     timeStamp:true
