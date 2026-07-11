@@ -27,6 +27,20 @@ const login = async (req, res) => {
        });
       }
 
+
+      if(user.isLoggedIn === true){
+
+         return res.status(400).json({
+ 
+            message:'the user is already logged in',
+            success:false
+            // validate if the user is already logged in
+         })
+    
+
+
+      }
+
       const validatePassowrd  = await bcrypt.compare(password,user.password);
 
       if(!validatePassowrd){
