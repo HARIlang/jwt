@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <h1>login here</h1>
+
+      <form onsubmit="login(event)">
+        <table style="margin: auto">
+          <tr>
+            <td>email</td>
+            <td><input type="email" id="email" required /></td>
+          </tr>
+          <tr>
+            <td>password</td>
+            <td><input type="text" id="password" required /></td>
+          </tr>
+        </table>
+
+        <button type="reset">cancel</button>
+        <button type="submit">login</button>
+      </form>
+
+      <h3><a href="signup.html">not a usere sign up here</a></h3>
+
+      <script>
+        async function login(e) {
+           e.preventDefault();
+           try {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            const base_url = "http://localhost:4500/api/user";
+
+            const res = await axios.post(`${base_url}/login`, {
+              email,
+              password,
+            });
+            
+            console.log(res);
+
+            localStorage.setItem("user" , JSON.stringify(res?.data?.user)); // storing user data in local stroage
+            localStorage.setItem("token" , JSON.stringify(res?.data?.token)); // storing token in local stroage
+
+            window.location.href = "dashboard.html";  // redirect to dashboard
+          } catch (error) {
+            console.log(error?.response);
+          }
+        }
+      </script>
+    </div>
+  </body>
+</html>

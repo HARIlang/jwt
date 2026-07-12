@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <h1>signup page</h1>
+
+      <form onsubmit="signup(event)">
+        <table style="margin: auto">
+          <tr>
+            <td>User Name</td>
+            <td><input type="text" id="userName" required /></td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td><input type="email" id="email" required /></td>
+          </tr>
+
+          <tr>
+            <td>password</td>
+            <td><input type="text" id="password" required /></td>
+          </tr>
+          <tr>
+            <td>age</td>
+            <td><input type="number" id="age" required /></td>
+          </tr>
+           <tr>
+            <td>role</td>
+            <td><input type="text" id="role" required /></td>
+          </tr>
+        </table>
+        <button type="reset">cancel</button>
+        <button type="submit">signup</button>
+      </form>
+
+      <a href="login.html">already have a acount ? login here</a>
+
+      <script>
+        async function signup(event) {
+          event.preventDefault();
+
+          try {
+            let userName = document.getElementById("userName").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let age = document.getElementById("age").value.trim();
+            let role = document.getElementById("role").value.trim();
+
+            const base_url = "http://localhost:4500/api/user/";
+
+            const res = await axios.post(`${base_url}signup`, {
+              userName,
+              email,
+              password,
+              age,
+              role
+            });
+
+            console.log("New user created", res.data);
+          } catch (error) {
+            console.log(error.response);
+          }
+        }
+      </script>
+    </div>
+  </body>
+</html>

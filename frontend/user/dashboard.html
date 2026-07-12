@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>welcome user</h1>
+      <h3 id="name"></h3>
+      <h3 id="email"></h3>
+      <button onclick=viewProfile()>user profile</button>
+    </div>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      function initDashboard() {
+        if (!user) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        document.getElementById("name").innerHTML = user.userName;
+        document.getElementById("email").innerHTML = user.email;
+      }
+
+      initDashboard();
+     
+
+      function viewProfile(){
+
+
+      window.location = "profile.html"
+
+
+      }
+     
+      
+    </script>
+  </body>
+</html>
