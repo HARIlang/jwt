@@ -8,10 +8,13 @@ const logoutUser = require('../controller/user/logout.js');
 
 const userProfile = require('../controller/user/userProfile.js')
 
+const authenticateUser = require('../middleware/auth.middleware.js')
+
+
 router.post('/user/signup',signup );
 router.post('/user/login',userLogin );
 router.put('/user/logout',logoutUser );
-router.get('/user/userprofile/:email',userProfile );
+router.get('/user/userprofile',authenticateUser,userProfile );
 
 module.exports = router
 
