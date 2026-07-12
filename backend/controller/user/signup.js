@@ -12,12 +12,12 @@ const signUp = async (req, res) => {
   }
 
   try {
-    let { userName, email, password } = req.body;
+    let { userName, email, password , age , role } = req.body;
 
     
 
 
-    if (!email || !userName || !password) {
+    if (!email || !userName || !password ||!age ||!role) {
       return res.status(400).json({
         message: "all fields should be filled for signup",
         success: false,
@@ -29,6 +29,8 @@ const signUp = async (req, res) => {
     userName = userName.trim();
     email = email.trim();
     password = password.trim();
+    role = role.trim();
+    age = age.trim();
 
     const existingUser = await userModel.findOne({ email });
 
@@ -54,7 +56,9 @@ const signUp = async (req, res) => {
   const user = await userModel.create({
     userName,
     email,
-    password:hashedPasswword
+    password:hashedPasswword,
+    age,
+    role
   });
 
    return res.status(201).json({

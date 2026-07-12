@@ -18,6 +18,17 @@ const userSchema = mongoose.Schema({
     required: true,
     select: false,
   },
+  age:{
+  
+    type:Number,
+    required:true,
+  
+  },
+  role:{
+   type:String,
+   requird:true
+
+  },
   isLoggedIn:{
   
     type:Boolean,
