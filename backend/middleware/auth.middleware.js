@@ -3,27 +3,27 @@ const { decode } = require('node:punycode');
 const { json } = require('node:stream/consumers');
 
 const authenticateUser = (req,res,next) =>{
-try{
+    try{
 
+        const authHeader = req.headers.authorization;
+        const token = authHeader.split(" ")[1];
     
-  const decoded = jwt.verify(
-    token,
-    process.env.JWT_key
-) ;
+         const decoded_token = jwt.verify(token,process.env.JWT_KEY);
 
-req.user = decode;
+        console.log(decoded_token);
 
-next()
+        req.user = decoded_token;
+        
+       next();
+    }
+    catch(error){
 
-
-}
-catch(error){
-    res.status(401).json({
-        success:false,
-        message:'invalid token',
-        error:error.stack
-    });
-}
+       res.status(401).json({
+         error:error.message,
+        message:"invalid token",
+        success:false
+       })
+    }
 }
 
 module.exports = authenticateUser

@@ -28,7 +28,8 @@
   </body>
   <script>
     const user = JSON.parse(localStorage.getItem("user"));
-
+    const token = localStorage.getItem("token")
+    
     let email = user?.email;
 
     function initProfile() {
@@ -43,9 +44,14 @@
       try {
         const base_url = "http://localhost:4500/api/user";
 
-        const res = await axios.get(`${base_url}/userprofile/${email}`);
+        const res = await axios.get(`${base_url}/userprofile/`,{
 
-        console.log(res.data.data);
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        });
+
+        console.log(res.data);
          
         document.getElementById("name").innerHTML =res?.data?.data?.userName;
         document.getElementById("email").innerHTML =res?.data?.data?.email;

@@ -2,7 +2,8 @@ const userModel = require("../../models/usermodel.js");
 
 const userProfile = async (req, res) => {
   try {
-    let email  = req.params.email;
+    const {email} = req.user
+   
 
     if (!email) {
       return res.status(400).json({
