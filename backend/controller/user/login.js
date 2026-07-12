@@ -1,6 +1,9 @@
 const userModel = require("../../models/usermodel");
 const bcrypt = require("bcrypt");
 
+const jwt  = require('jsonwebtoken');
+const { json } = require("node:stream/consumers");
+
 const login = async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -64,12 +67,23 @@ const login = async (req, res) => {
       
       );
 
+      const token = jwt.sign({
+        id:user._id,
+        email:user.email
+      },"mySSSSSS")
+
     return res.status(200).json({
       message:`welcome  ${user.userName }`,
       success:true,
+      token,
+      user:{
+        userName:user.userName,
+        email:user.email
+      }
     })
    
    
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -78,5 +92,5 @@ const login = async (req, res) => {
     });
   }
 };
-
+ 
 module.exports = login;
