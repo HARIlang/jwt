@@ -22,8 +22,12 @@ const userSchema = mongoose.Schema({
   
     type:Number,
     required:true,
+    validate:{
+
+      validator: Number.isInteger,
+      message:'the age should be an whole number', // validating the age
   
-  },
+  }},
   role:{
    type:String,
    requird:true
