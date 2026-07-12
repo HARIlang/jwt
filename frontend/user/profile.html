@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>user profile</h1>
+    <table>
+      <tr>
+        <td>user name :</td>
+        <td id="name"></td>
+      </tr>
+      <tr>
+        <td >email:</td>
+        <td id="email"></td>
+      </tr>
+      <tr>
+        <td>age</td>
+        <td id="age"></td>
+      </tr>
+      <tr>
+        <td>role</td>
+        <td id="role"></td>
+      </tr>
+    </table>
+  </body>
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    let email = user?.email;
+
+    function initProfile() {
+      if (!user) {
+        window.location = "login.html";
+        return;
+      }
+    }
+    initProfile();
+
+    async function userProfile() {
+      try {
+        const base_url = "http://localhost:4500/api/user";
+
+        const res = await axios.get(`${base_url}/userprofile/${email}`);
+
+        console.log(res.data.data);
+         
+        document.getElementById("name").innerHTML =res?.data?.data?.userName;
+        document.getElementById("email").innerHTML =res?.data?.data?.email;
+        document.getElementById("age").innerHTML =res?.data?.data?.age;
+        document.getElementById("role").innerHTML =res?.data?.data?.role;
+        
+      } catch (error) {
+        console.log(error?.responce);
+      }
+    }
+
+    userProfile();
+  </script>
+</html>
