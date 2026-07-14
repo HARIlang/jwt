@@ -47,7 +47,8 @@
         const res = await axios.get(`${base_url}/userprofile/`,{
 
           headers:{
-            Authorization:`Bearer ${token}`
+            Authorization:`Bearer ${token}`    // it can also send as develoer preference like haders :{token:token} but the format given in the code is http standard format maintained in all tech like , dijango and other backend services
+             
           }
         });
 

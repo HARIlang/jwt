@@ -71,8 +71,7 @@ const login = async (req, res) => {
         id:user._id,
         email:user.email   // gentrate the token
       },
-      
-    process.env.JWT_key)
+      process.env.JWT_key)
 
     return res.status(200).json({
       message:`welcome  ${user.userName }`,

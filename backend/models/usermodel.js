@@ -33,13 +33,7 @@ const userSchema = mongoose.Schema({
    requird:true
 
   },
-  isLoggedIn:{
   
-    type:Boolean,
-    default:false
-
-
-  },
 },
 {
     timeStamp:true

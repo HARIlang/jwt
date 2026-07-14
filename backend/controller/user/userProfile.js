@@ -14,12 +14,12 @@ const userProfile = async (req, res) => {
 
     const userProfile = await userModel.findOne({ email });
 
-    if (!userProfile.isLoggedIn) {
-      return res.status(402).json({
-        message: "the user must be logged in for view the user profile",
-        success: false, // validate if the user is not logged in
-      });
-    }
+    // if (!userProfile.isLoggedIn) {
+    //   return res.status(402).json({
+    //     message: "the user must be logged in for view the user profile",
+    //     success: false, // validate if the user is not logged in
+    //   });
+    // }
 
     return res.status(200).json({
       message: "here is user profile",

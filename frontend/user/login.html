@@ -45,10 +45,9 @@
             console.log(res);
             
 
-            localStorage.setItem("user" , JSON.stringify(res?.data?.user)); // storing user data in local stroage
-            localStorage.setItem("token" , res?.data?.token); // storing token in local stroage
+          localStorage.setItem("token" , res?.data?.token); // storing token in local stroage
 
-            window.location.href = "dashboard.html";  // redirect to dashboard
+            window.location.href = "profile.html";  // redirect to user profile
           } catch (error) {
             console.log(error?.response);
           }
