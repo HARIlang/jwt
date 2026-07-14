@@ -15,4 +15,3 @@ const globalLimiter = rateLimit({
 
 
 module.exports =  globalLimiter
-
