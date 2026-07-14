@@ -1,22 +1,20 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const router = require('./routes/router.js');
+const router = require("./routes/router.js");
 
-const cors = require('cors');
+const globalRateLimiter = require('./middleware/rateLimiter.js')
+
+const cors = require("cors");
 
 app.use(cors()); //
 
-
-
 app.use(express.json());
 
-const db = require('./db/db.js');
+const db = require("./db/db.js");
 db();
 
-app.use('/api',router); // signup route
+app.use("/api",globalRateLimiter, router); //
 
-const port = process.env.PORT
+const port = process.env.PORT;
 
-
-
-app.listen(port,()=>console.log(`the server is running in ${port}`))
+app.listen(port, () => console.log(`the server is running in ${port}`));

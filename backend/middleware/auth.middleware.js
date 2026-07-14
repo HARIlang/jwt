@@ -1,21 +1,27 @@
-const jwt = require("jsonwebtoken"); // using jwt
-const { decode } = require("node:punycode");
-const { json } = require("node:stream/consumers");
+const jwt = require("jsonwebtoken"); // Import JWT
 
 const authenticateUser = (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization; // assigning the token
-    const token = authHeader.split(" ")[1]; // spliting the bearer from the token
+    const authHeader = req.headers.authorization; // Retrieve the Authorization header
 
-    const decoded_token = jwt.verify(token, process.env.JWT_KEY); // verify the the form the fronted is same as the backed by adding the secret key
 
-    req.user = decoded_token; // assigining the decoded code to the req. user can be accessed in the userProfile controller
+     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+     return res.status(401).json({   //Checks the authheaders 
+        message: "Authorization token missing"
+    });
+}
 
-    next(); // leads to next module of code
+    const token = authHeader.split(" ")[1]; // Extract the token by separating the "Bearer" prefix
+
+    const decoded_token = jwt.verify(token, process.env.JWT_KEY); // Verify that the token received from the frontend is valid using the backend secret key
+
+    req.user = decoded_token; // Attach the decoded token payload to req.user so it can be accessed in the userProfile controller
+
+    next(); // Pass control to the next middleware
   } catch (error) {
     res.status(401).json({
       error: error.message,
-      message: "invalid token",
+      message: "Invalid token",
       success: false,
     });
   }
