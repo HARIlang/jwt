@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">welcome admin <span id="admin"></span></h1>
+  </body>
+
+  <script>
+    const token = localStorage.getItem("token");
+     initAdmin()
+    async function initAdmin() {
+      try {
+        if (!token) {
+            return window.location = '../user/login.html'
+        }
+        const url = "http://localhost:4500/api/user";
+     
+
+
+         console.log(token)
+    
+         const res = await axios.get(`${url}/userprofile`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+         });
+
+         console.log(res.data)
+         document.getElementById('admin').innerHTML=res.data.userProfile.name
+
+      } catch (error) {
+        console.log(error.response)
+      }
+    }
+  </script>
+</html>

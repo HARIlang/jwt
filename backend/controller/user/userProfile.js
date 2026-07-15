@@ -2,8 +2,7 @@ const userModel = require("../../models/usermodel.js");
 
 const userProfile = async (req, res) => {
   try {
-    const {email} = req.user
-   
+    const { email } = req.user;
 
     if (!email) {
       return res.status(400).json({
@@ -12,19 +11,17 @@ const userProfile = async (req, res) => {
       });
     }
 
-    const userProfile = await userModel.findOne({ email });
-
-    // if (!userProfile.isLoggedIn) {
-    //   return res.status(402).json({
-    //     message: "the user must be logged in for view the user profile",
-    //     success: false, // validate if the user is not logged in
-    //   });
-    // }
+    const user = await userModel.findOne({ email });
 
     return res.status(200).json({
       message: "here is user profile",
       success: true,
-      data: userProfile,
+      userProfile: {
+        name: user.userName,
+        email: user.email,
+        role: user.role,
+        age:user.age
+      },
     });
   } catch (error) {
     res.status(500).json({

@@ -46,31 +46,22 @@ const login = async (req, res) => {
       });
     }
 
-    const userLogin = await userModel.findByIdAndUpdate(
-      user._id,
-
-      {
-        isLoggedIn: true,
-      },
-      {
-        new: true,
-      },
-    );
+    
 
     const token = jwt.sign(
       {
         id: user._id,
-        email: user.email, // generates the token
+        email: user.email,
+        role:user.role  // generates the token
       },
       process.env.JWT_key,
-       {
-      expiresIn: "5h"
-    }
+       
     );
 
     return res.status(200).json({
       message: `welcome ${user.userName}`,
       success: true,
+     role:user.role,
       token,
     });
   } catch (error) {

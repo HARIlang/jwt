@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -29,9 +29,9 @@
       <h3><a href="signup.html">not a usere sign up here</a></h3>
 
       <script>
-        async function login(e) {
-           e.preventDefault();
-           try {
+        async function login(event) {
+          event.preventDefault();
+          try {
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
 
@@ -41,13 +41,18 @@
               email,
               password,
             });
-            
+
             console.log(res);
-            
+            if (res.data.role === "admin") {
+              localStorage.setItem("token", res?.data?.token);
+              window.location = "../admin/admin.html";
 
-          localStorage.setItem("token" , res?.data?.token); // storing token in local stroage
+              return;
+            }
 
-            window.location.href = "profile.html";  // redirect to user profile
+            localStorage.setItem("token", res?.data?.token); // storing token in local stroage
+
+            window.location.href = "profile.html"; // redirect to user profile
           } catch (error) {
             console.log(error?.response);
           }

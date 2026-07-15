@@ -27,13 +27,13 @@
     </table>
   </body>
   <script>
-    const user = JSON.parse(localStorage.getItem("user"));
+   
     const token = localStorage.getItem("token")
     
-    let email = user?.email;
+    
 
     function initProfile() {
-      if (!user) {
+      if (!token) {
         window.location = "login.html";
         return;
       }
@@ -52,12 +52,12 @@
           }
         });
 
-        console.log(res.data);
+        console.log(res.data.userProfile);
          
-        document.getElementById("name").innerHTML =res?.data?.data?.userName;
-        document.getElementById("email").innerHTML =res?.data?.data?.email;
-        document.getElementById("age").innerHTML =res?.data?.data?.age;
-        document.getElementById("role").innerHTML =res?.data?.data?.role;
+        document.getElementById("name").innerHTML =res?.data?.userProfile?.name;
+        document.getElementById("email").innerHTML =res?.data?.userProfile?.email;
+        document.getElementById("age").innerHTML =res?.data?.userProfile?.age;
+        document.getElementById("role").innerHTML =res?.data?.userProfile?.role;
         
       } catch (error) {
         console.log(error?.responce);
