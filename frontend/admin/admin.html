@@ -9,11 +9,34 @@
   </head>
   <body>
     <h1 style="text-align: center;">welcome admin <span id="admin"></span></h1>
+
+   <div>
+
+       <fieldset>
+
+        <legend>
+          user list
+        </legend>
+
+          <table id="userinfo">
+            
+          </table>
+
+       </fieldset>
+
+
+
+
+   </div>
+
   </body>
 
   <script>
     const token = localStorage.getItem("token");
+    const url = "http://localhost:4500/api/user";
+    
      initAdmin()
+     getAdminProfile()
     async function initAdmin() {
       try {
         if (!token) {
@@ -37,6 +60,44 @@
       } catch (error) {
         console.log(error.response)
       }
+    }
+
+    async function getAdminProfile(){
+
+    try{
+        const res = await axios.get(`${url}/adminprofile`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+         });
+        
+          console.log(res.data.filtered_users);
+          const users = res.data.filtered_users;
+
+      const userInfo=users.map((user)=>{
+        return `
+        
+          <tr>
+            <td>${user.userName}</td>
+            <td>${user.email}</td>
+            <td>${user.role}</td>
+            <td>${user.age}</td>
+            </tr>
+           
+        
+        
+        `
+      }).join('');
+
+      document.getElementById('userinfo').innerHTML = userInfo
+
+    }
+    catch(error){
+   
+         console.log(error.response)
+
+    }
+
     }
   </script>
 </html>
