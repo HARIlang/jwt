@@ -73,7 +73,7 @@ const login = async (req, res) => {
       success: true,
       role: user.role,
       token,
-      refferesh_token,
+      refresh_token,
     });
   } catch (error) {
     return res.status(500).json({
