@@ -8,7 +8,7 @@ const authenticateUser = (req, res, next) => {
      if (!authHeader || !authHeader.startsWith("Bearer ")) {
      return res.status(401).json({   //Checks the authheaders 
         message: "Authorization token missing"
-    });
+    })
 }
 
     const token = authHeader.split(" ")[1]; // Extract the token by separating the "Bearer" prefix

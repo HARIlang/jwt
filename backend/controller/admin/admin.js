@@ -4,15 +4,6 @@ const adminProfile = async(req,res) =>{
    
     try{
          
-       const user = req.user
-
-       if(!user){
-        return res.status(402).json({
-            message:' the token is not valid from the admin',
-            success:false
-        })
-       }
-
        const users = await userModel.find();
 
        const filtered_users = users.filter(user => user.role !="admin")   // send the user only as the response

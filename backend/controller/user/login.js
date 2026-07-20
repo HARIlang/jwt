@@ -46,23 +46,34 @@ const login = async (req, res) => {
       });
     }
 
-    
-
     const token = jwt.sign(
       {
         id: user._id,
         email: user.email,
-        role:user.role  // generates the token
+        role: user.role, // generates the token
+      },
+      {
+        expiresIn: "15m",
       },
       process.env.JWT_key,
-       
+    );
+
+    const refresh_token = jwwt.sign(
+      {
+        id: user.id,
+      },
+      {
+        expiresIn: "30d",
+      },
+      process.env.JWT_R_KEY,
     );
 
     return res.status(200).json({
       message: `welcome ${user.userName}`,
       success: true,
-     role:user.role,
+      role: user.role,
       token,
+      refferesh_token,
     });
   } catch (error) {
     return res.status(500).json({
